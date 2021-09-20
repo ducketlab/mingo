@@ -1,0 +1,22 @@
+syntax = 'proto3';
+
+package google.protobuf;
+
+option go_package = "github.com/ducketlab/mingo/cmd/protoc-gen-go-ext/extension/tag;tag";
+option java_package = "com.google.protobuf";
+option java_outer_classname = "TagProtos";
+option csharp_namespace = "Google.Protobuf.Reflection";
+option objc_class_prefix = "GPB";
+option cc_enable_arenas = true;
+
+option optimize_for = SPEED;
+
+import "google/protobuf/descriptor.proto";
+
+extend google.protobuf.FieldOptions {
+  FieldTag field_tag = 65000;
+}
+
+message FieldTag {
+  string struct_tag = 1;
+}

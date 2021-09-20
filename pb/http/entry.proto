@@ -1,0 +1,20 @@
+syntax = 'proto3';
+
+package mingo.http;
+
+option optimize_for = SPEED;
+
+import "github.com/ducketlab/mingo/cmd/protoc-gen-go-ext/extension/tag/tag.proto";
+import "google/protobuf/descriptor.proto";
+
+extend google.protobuf.MethodOptions {
+  Entry rest_api = 20210920;
+}
+
+message Entry {
+  string function_name = 2[
+    (google.protobuf.field_tag) = {
+      struct_tag: 'bson:"function_name" json:"function_name"'
+    }
+  ];
+}
