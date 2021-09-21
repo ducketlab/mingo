@@ -2,6 +2,13 @@ syntax = 'proto3';
 
 package mingo.http;
 
+option go_package = "github.com/ducketlab/mingo/pb/http;http";
+option java_package = "com.google.protobuf";
+option java_outer_classname = "HttpProtos";
+option csharp_namespace = "Google.Protobuf.Reflection";
+option objc_class_prefix = "GPB";
+option cc_enable_arenas = true;
+
 option optimize_for = SPEED;
 
 import "github.com/ducketlab/mingo/cmd/protoc-gen-go-ext/extension/tag/tag.proto";
