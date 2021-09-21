@@ -19,9 +19,36 @@ extend google.protobuf.MethodOptions {
 }
 
 message Entry {
-  string function_name = 2[
+  string path = 2[
     (google.protobuf.field_tag) = {
-      struct_tag: 'bson:"function_name" json:"function_name"'
+      struct_tag: 'bson:"path" json:"path"'
     }
+  ];
+  string method = 3[
+    (google.protobuf.field_tag) = {
+      struct_tag: 'bson:"method" json:"method"'
+    }
+  ];
+  string resource = 4[
+    (google.protobuf.field_tag) = {struct_tag: 'bson:"resource" json:"resource"'}
+  ];
+  string auth_enable = 5[
+    (google.protobuf.field_tag) = {
+      struct_tag: 'bson:"auth_enable" json:"auth_enable"'
+    }
+  ];
+  string permission_enable = 6[
+    (google.protobuf.field_tag) = {
+      struct_tag: 'bson:"permission_enable" json:"permission_enable"'
+    }
+  ];
+  repeated string allow = 7[
+    (google.protobuf.field_tag) = {struct_tag: 'bson:"allow" json:"allow"'}
+  ];
+  map<string, string> labels = 8[
+    (google.protobuf.field_tag) = {struct_tag: 'bson:"labels" json:"labels"'}
+  ];
+  map<string, string> extension = 9[
+    (google.protobuf.field_tag) = {struct_tag: 'bson:"extension" json:"extension"'}
   ];
 }
