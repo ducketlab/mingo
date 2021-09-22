@@ -46,6 +46,15 @@ func (s *entrySet) FindEntry(path string, method string) *entry {
 	return nil
 }
 
+func (s *entrySet) EntrySet() *httppb.EntrySet {
+	es := httppb.NewEntrySet()
+	for _, key := range s.order {
+		es.AddEntry(*s.items[key].Entry)
+	}
+
+	return es
+}
+
 func (s *entrySet) ID(path string, method string) string {
 	return path + "." + method
 }

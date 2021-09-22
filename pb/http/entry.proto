@@ -32,12 +32,12 @@ message Entry {
   string resource = 4[
     (google.protobuf.field_tag) = {struct_tag: 'bson:"resource" json:"resource"'}
   ];
-  string auth_enable = 5[
+  bool auth_enable = 5[
     (google.protobuf.field_tag) = {
       struct_tag: 'bson:"auth_enable" json:"auth_enable"'
     }
   ];
-  string permission_enable = 6[
+  bool permission_enable = 6[
     (google.protobuf.field_tag) = {
       struct_tag: 'bson:"permission_enable" json:"permission_enable"'
     }

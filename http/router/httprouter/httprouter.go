@@ -2,6 +2,7 @@ package httprouter
 
 import (
 	"github.com/ducketlab/mingo/http/context"
+	"github.com/ducketlab/mingo/http/response"
 	"github.com/ducketlab/mingo/http/router"
 	httppb "github.com/ducketlab/mingo/pb/http"
 	"github.com/julienschmidt/httprouter"
@@ -46,9 +47,17 @@ func (r *httpRouter) Use(m router.Middleware) {
 }
 
 func (r *httpRouter) Handle(method string, path string, h http.HandlerFunc) httppb.EntryDecorator {
+
 	e := &entry{
-		Entry: &httppb.Entry{},
-		h:     h,
+		Entry: &httppb.Entry{
+			Path:             path,
+			Method:           method,
+			AuthEnable:       r.authEnable,
+			PermissionEnable: r.permissionEnable,
+			Allow:            r.allow,
+			Labels:           map[string]string{},
+		},
+		h: h,
 	}
 
 	r.add(e)
@@ -86,6 +95,7 @@ func (r *httpRouter) addHandler(method string, path string, h http.Handler) {
 			ai, err := r.auther.Auth(req, *entry.Entry)
 
 			if err != nil {
+				response.Failed(w, err)
 				return
 			}
 
@@ -129,5 +139,21 @@ func (r *httpRouter) findEntry(method string, path string) *entry {
 }
 
 func (r *httpRouter) SetAuther(auther router.Auther) {
-	panic("implement me")
+	r.auther = auther
+}
+
+func (r *httpRouter) Auth(isEnable bool) {
+	r.authEnable = isEnable
+}
+
+func (r *httpRouter) Permission(isEnable bool) {
+	r.permissionEnable = isEnable
+}
+
+func (r *httpRouter) EnableApiRoot() {
+	r.Handle("GET", "/", r.apiRoot)
+}
+
+func (r *httpRouter) apiRoot(w http.ResponseWriter, req *http.Request) {
+	response.Success(w, r.entrySet.EntrySet())
 }
