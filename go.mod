@@ -9,4 +9,5 @@ require (
 	google.golang.org/grpc v1.38.0
 	google.golang.org/protobuf v1.27.1
 	github.com/rs/xid v1.3.0
+	go.uber.org/zap v1.18.1
 )

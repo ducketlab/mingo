@@ -13,14 +13,15 @@ import (
 type httpRouter struct {
 	r *httprouter.Router
 
-	middlewareChain  []router.Middleware
-	entrySet         *entrySet
-	auther           router.Auther
-	mergedHandler    http.Handler
-	notFound         http.Handler
-	authEnable       bool
-	permissionEnable bool
-	allow            []string
+	middlewareChain   []router.Middleware
+	entrySet          *entrySet
+	auther            router.Auther
+	mergedHandler     http.Handler
+	notFound          http.Handler
+	authEnable        bool
+	permissionEnable  bool
+	allow             []string
+	requiredNamespace bool
 }
 
 func New() router.Router {
@@ -156,4 +157,12 @@ func (r *httpRouter) EnableApiRoot() {
 
 func (r *httpRouter) apiRoot(w http.ResponseWriter, req *http.Request) {
 	response.Success(w, r.entrySet.EntrySet())
+}
+
+func (r *httpRouter) RequiredNamespace(isEnable bool) {
+	r.requiredNamespace = isEnable
+}
+
+func (r *httpRouter) SubRouter(basePath string) router.SubRouter {
+	panic("implement me")
 }
