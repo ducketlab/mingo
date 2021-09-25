@@ -16,7 +16,7 @@ build: dep ## Build the binary file
 vet: ## Run go vet
 	@go vet ${PKG_LIST}
 
-codegen: # Init Service
+codegen: ## Init Service
 	@protoc -I=.  -I${MOD_DIR}/src --go-ext_out=module=${PKG}:. cmd/protoc-gen-go-ext/extension/tag/*.proto
 	@protoc -I=.  -I${MOD_DIR}/src --go-ext_out=module=${PKG}:. pb/*/*.proto
 	@go generate ./...

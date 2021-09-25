@@ -164,5 +164,5 @@ func (r *httpRouter) RequiredNamespace(isEnable bool) {
 }
 
 func (r *httpRouter) SubRouter(basePath string) router.SubRouter {
-	panic("implement me")
+	return newSubRouter(basePath, r)
 }
