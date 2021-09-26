@@ -21,6 +21,9 @@ type Router interface {
 	// SetAuther Set auther
 	SetAuther(auther Auther)
 
+	// ServeHTTP server handle
+	ServeHTTP(http.ResponseWriter, *http.Request)
+
 	// RequiredNamespace namespace
 	RequiredNamespace(isEnable bool)
 
@@ -54,4 +57,7 @@ type SubRouter interface {
 
 	// Handle Add an authentication protected route
 	Handle(method string, path string, h http.HandlerFunc) httppb.EntryDecorator
+
+	// ResourceRouter router
+	ResourceRouter(resourceName string) ResourceRouter
 }

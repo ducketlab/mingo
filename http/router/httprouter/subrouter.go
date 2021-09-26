@@ -89,6 +89,23 @@ func (r *subRouter) combineHandler(e *entry) http.Handler {
 	return mergedHandler
 }
 
+func (r *subRouter) ResourceRouter(resourceName string) router.ResourceRouter {
+	return &subRouter{
+		resourceName:      resourceName,
+		resourceBasePath:  r.basePath,
+		basePath:          r.basePath,
+		root:              r.root,
+		authEnable:        r.authEnable,
+		permissionEnable:  r.permissionEnable,
+		allow:             r.allow,
+		requiredNamespace: r.requiredNamespace,
+	}
+}
+
+func (r *subRouter) BasePath(path string) {
+	r.basePath = r.resourceBasePath + "/" + path
+}
+
 func (r *subRouter) calculateAbsolutePath(relativePath string) string {
 
 	if relativePath == "" {

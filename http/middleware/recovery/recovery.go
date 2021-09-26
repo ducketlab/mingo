@@ -28,7 +28,7 @@ func NewWithLogger(l logger.WithMetaLogger) router.Middleware {
 	}
 }
 
-func (r *recovery) Handler(handler http.Handler) http.Handler {
+func (r *recovery) Handler(next http.Handler) http.Handler {
 	return http.HandlerFunc(func(writer http.ResponseWriter, request *http.Request) {
 		defer func() {
 			if request := recover(); request != nil {
@@ -45,6 +45,8 @@ func (r *recovery) Handler(handler http.Handler) http.Handler {
 				return
 			}
 		}()
+
+		next.ServeHTTP(writer, request)
 	})
 }
 

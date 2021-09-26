@@ -9,6 +9,7 @@ dep: ## Get the dependencies
 
 install: ## install mingo cli
 	@go install ${PKG}/cmd/protoc-gen-go-ext
+	@go install ${PKG}/cmd/protoc-gen-go-http
 
 build: dep ## Build the binary file
 	@go build -o build/$(PROJECT_NAME) $(MINGO_MAIN)

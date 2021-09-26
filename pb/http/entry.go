@@ -17,3 +17,9 @@ func (s *EntrySet) AddEntry(es ...Entry)  {
 		s.Items = append(s.Items, &es[i])
 	}
 }
+
+func (s *EntrySet) Merge(target *EntrySet) {
+	for i := range target.Items {
+		s.Items = append(s.Items, target.Items[i])
+	}
+}

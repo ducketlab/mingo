@@ -27,6 +27,7 @@ type httpRouter struct {
 func New() router.Router {
 	r := &httpRouter{
 		notFound: http.HandlerFunc(http.NotFound),
+		entrySet: newEntrySet(),
 		r: &httprouter.Router{
 			RedirectTrailingSlash:  true,
 			RedirectFixedPath:      true,
@@ -113,7 +114,6 @@ func (r *httpRouter) addHandler(method string, path string, h http.Handler) {
 			r.auther.ResponseHook(w, req, *entry.Entry)
 		}
 	}
-
 	r.r.Handle(method, path, wrapper)
 }
 
@@ -149,6 +149,15 @@ func (r *httpRouter) Auth(isEnable bool) {
 
 func (r *httpRouter) Permission(isEnable bool) {
 	r.permissionEnable = isEnable
+}
+
+func (r *httpRouter) ServeHTTP(w http.ResponseWriter, req *http.Request) {
+	if r.mergedHandler != nil {
+		r.mergedHandler.ServeHTTP(response.NewResponse(w), req)
+		return
+	}
+
+	r.r.ServeHTTP(response.NewResponse(w), req)
 }
 
 func (r *httpRouter) EnableApiRoot() {
