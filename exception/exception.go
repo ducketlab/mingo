@@ -23,3 +23,11 @@ func NewInternalServerError(format string, a ...interface{}) APIException {
 func NewBadRequest(format string, a ...interface{}) APIException {
 	return newException(usedNamespace, BadRequest, format, a...)
 }
+
+func NewNotFound(format string, a ...interface{}) APIException {
+	return newException(usedNamespace, NotFound, format, a...)
+}
+
+func NewUnauthorized(format string, a ...interface{}) APIException {
+	return newException(usedNamespace, Unauthorized, format, a...)
+}

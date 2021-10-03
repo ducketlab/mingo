@@ -19,7 +19,7 @@ func newException(namespace Namespace, code int, format string, a ...interface{}
 		namespace: namespace,
 		code:      code,
 		reason:    codeReason(code),
-		message:   fmt.Sprintf(format, a),
+		message:   fmt.Sprintf(format, a...),
 	}
 }
 
