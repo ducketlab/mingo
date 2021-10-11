@@ -24,6 +24,14 @@ func NewBadRequest(format string, a ...interface{}) APIException {
 	return newException(usedNamespace, BadRequest, format, a...)
 }
 
+func NewAccessTokenExpired(format string, a ...interface{}) APIException {
+	return newException(usedNamespace, AccessTokenExpired, format, a...)
+}
+
+func NewRefreshTokenExpired(format string, a ...interface{}) APIException {
+	return newException(usedNamespace, RefreshTokenExpired, format, a...)
+}
+
 func NewNotFound(format string, a ...interface{}) APIException {
 	return newException(usedNamespace, NotFound, format, a...)
 }
