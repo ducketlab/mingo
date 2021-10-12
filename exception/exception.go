@@ -39,3 +39,7 @@ func NewNotFound(format string, a ...interface{}) APIException {
 func NewUnauthorized(format string, a ...interface{}) APIException {
 	return newException(usedNamespace, Unauthorized, format, a...)
 }
+
+func NewPermissionDeny(format string, a ...interface{}) APIException {
+	return newException(usedNamespace, Forbidden, format, a...)
+}

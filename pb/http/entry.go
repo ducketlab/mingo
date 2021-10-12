@@ -1,7 +1,13 @@
 package http
 
+import "fmt"
+
 type EntryDecorator interface {
 
+}
+
+func (e *Entry) UniquePath() string {
+	return fmt.Sprintf("%s:%s", e.Method, e.Path)
 }
 
 func NewEntrySet() *EntrySet {

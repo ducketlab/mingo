@@ -109,10 +109,6 @@ func (r *httpRouter) addHandler(method string, path string, h http.Handler) {
 		req = context.WithContext(req, rc)
 
 		h.ServeHTTP(w, req)
-
-		if r.auther != nil {
-			r.auther.ResponseHook(w, req, *entry.Entry)
-		}
 	}
 	r.r.Handle(method, path, wrapper)
 }

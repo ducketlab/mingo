@@ -10,7 +10,6 @@ import (
 // The record of the record is used for authentication of permissions
 type Auther interface {
 	Auth(req *http.Request, entry httppb.Entry) (authInfo interface{}, err error)
-	ResponseHook(w http.ResponseWriter, r *http.Request, entry httppb.Entry)
 }
 
 // AuthFunc is an adapter to allow

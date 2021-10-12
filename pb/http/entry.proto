@@ -51,4 +51,7 @@ message Entry {
   map<string, string> extension = 9[
     (google.protobuf.field_tag) = {struct_tag: 'bson:"extension" json:"extension"'}
   ];
+  bool required_namespace = 10[
+    (google.protobuf.field_tag) = {struct_tag: 'bson:"required_namespace" json:"required_namespace"'}
+  ];
 }
