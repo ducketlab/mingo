@@ -8,6 +8,7 @@ dep: ## Get the dependencies
 	@go mod download
 
 install: ## install mingo cli
+	@go install ${PKG}/cmd/mingo
 	@go install ${PKG}/cmd/protoc-gen-go-ext
 	@go install ${PKG}/cmd/protoc-gen-go-http
 

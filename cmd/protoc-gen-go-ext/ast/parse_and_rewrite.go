@@ -31,7 +31,6 @@ type StructInfo struct {
 type FileInfo struct {
 	FileName    string
 	StructInfos []StructInfo
-	HasEnum     bool
 }
 
 func (si *StructInfo) FindField(name string) (FieldInfo, bool) {
@@ -50,7 +49,6 @@ func WalkDescriptorProto(g *protogen.Plugin, dp *descriptor.DescriptorProto, typ
 	s.StructNameInProto = dp.GetName()
 	s.StructNameInGo = CamelCaseSlice(append(typeNames, CamelCase(dp.GetName())))
 
-	//typeNames := []string{s.StructNameInGo}
 	for _, field := range dp.GetField() {
 		if field.GetOptions() == nil {
 			continue
@@ -88,7 +86,6 @@ func WalkDescriptorProto(g *protogen.Plugin, dp *descriptor.DescriptorProto, typ
 	return ss
 }
 
-// Rewrite 重新文件
 func Rewrite(g *protogen.Plugin) {
 	var protoFiles []FileInfo
 
@@ -101,10 +98,6 @@ func Rewrite(g *protogen.Plugin) {
 		f := FileInfo{}
 		f.FileName = protoFile.GetName()
 
-		if len(protoFile.EnumType) > 0 {
-			f.HasEnum = true
-		}
-
 		for _, messageType := range protoFile.GetMessageType() {
 			ss := WalkDescriptorProto(g, messageType, nil)
 			if len(ss) > 0 {
@@ -114,10 +107,6 @@ func Rewrite(g *protogen.Plugin) {
 
 		protoFiles = append(protoFiles, f)
 	}
-	// g.Response() will generate files, so skip this step
-	//if len(g.Response().GetFile()) == 0 {
-	//	return
-	//}
 
 	rewriter := NewGenerator(protoFiles, g)
 	for _, f := range g.Response().GetFile() {

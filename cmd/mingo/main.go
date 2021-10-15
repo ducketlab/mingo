@@ -1,5 +1,7 @@
 package main
 
-func main() {
+import "github.com/ducketlab/mingo/cmd/mingo/cmd"
 
+func main() {
+	cmd.Execute()
 }
